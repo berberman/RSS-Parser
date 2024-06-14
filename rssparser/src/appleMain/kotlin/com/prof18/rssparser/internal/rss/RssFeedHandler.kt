@@ -79,6 +79,9 @@ internal class RssFeedHandler : FeedHandler {
                             )
                         }
                     }
+                    channelFactory.enclosureBuilder.url(attributes.getValueOrNull(RssKeyword.Url.value) as? String)
+                    channelFactory.enclosureBuilder.type(type)
+                    channelFactory.enclosureBuilder.length(attributes.getValueOrNull(RssKeyword.Length.value) as? String)
                 }
             }
 
@@ -125,12 +128,15 @@ internal class RssFeedHandler : FeedHandler {
             isInsideItem -> {
                 itemData[element] = (itemData[element].orEmpty()) + characters
             }
+
             isInsideItunesOwner -> {
                 itunesOwnerData[element] = (itunesOwnerData[element].orEmpty()) + characters
             }
+
             isInsideChannelImage -> {
                 channelImageData[element] = (channelImageData[element].orEmpty()) + characters
             }
+
             isInsideChannel -> {
                 channelData[element] = (channelData[element].orEmpty()) + characters
             }
@@ -266,6 +272,10 @@ internal class RssFeedHandler : FeedHandler {
                 itemData.clear()
             }
 
+            RssKeyword.Item.Enclosure.value -> {
+                channelFactory.buildEnclosure()
+            }
+
             RssKeyword.Channel.Itunes.Owner.value -> {
                 channelFactory.itunesOwnerBuilder.name(
                     itunesOwnerData[RssKeyword.Channel.Itunes.OwnerName.value]?.trim()
@@ -302,6 +312,7 @@ internal class RssFeedHandler : FeedHandler {
                     isInsideChannelImage = false
                 }
             }
+
         }
     }
 

@@ -73,6 +73,9 @@ internal class RssFeedHandler : FeedHandler {
                             )
                         }
                     }
+                    channelFactory.enclosureBuilder.url(attributes?.getValue(RssKeyword.Url.value))
+                    channelFactory.enclosureBuilder.type(type)
+                    channelFactory.enclosureBuilder.length(attributes?.getValue(RssKeyword.Length.value))
                 }
             }
 
@@ -149,6 +152,7 @@ internal class RssFeedHandler : FeedHandler {
 
                     RssKeyword.Item.Enclosure.value -> {
                         channelFactory.articleBuilder.image(text)
+                        channelFactory.buildEnclosure()
                     }
 
                     RssKeyword.Item.Thumb.value -> {

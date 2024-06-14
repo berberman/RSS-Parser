@@ -1,11 +1,6 @@
 package com.prof18.rssparser.internal
 
-import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.RssChannel
-import com.prof18.rssparser.model.RssImage
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.*
 
 internal class ChannelFactory {
     val channelBuilder = RssChannel.Builder()
@@ -14,6 +9,7 @@ internal class ChannelFactory {
     val itunesChannelBuilder = ItunesChannelData.Builder()
     var itunesArticleBuilder = ItunesItemData.Builder()
     var itunesOwnerBuilder = ItunesOwner.Builder()
+    var enclosureBuilder = RssEnclosure.Builder()
 
     // This image url is extracted from the content and the description of the rss item.
     // It's a fallback just in case there aren't any images in the enclosure tag.
@@ -32,6 +28,11 @@ internal class ChannelFactory {
     fun buildItunesOwner() {
         itunesChannelBuilder.owner(itunesOwnerBuilder.build())
         itunesOwnerBuilder = ItunesOwner.Builder()
+    }
+
+    fun buildEnclosure(){
+        articleBuilder.enclosure(enclosureBuilder.build())
+        enclosureBuilder = RssEnclosure.Builder()
     }
 
     /**
