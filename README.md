@@ -195,7 +195,6 @@ You can transform a Coroutine into a `CompletableFuture` using the `future` exte
 the `kotlinx-coroutines-core` library. 
 
 ```kotlin
-@JvmName("parseFeed")
 fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> = GlobalScope.future {
     parser.getRssChannel(url)
 }
@@ -213,6 +212,7 @@ try {
     snackbar.postValue("An error has occurred. Please try again");
 }
 ```
+An implementation of these code snippets is available in the [Java sample](samples/java/src/main/java/com/prof/rssparser/sample/java/), in `CoroutineBridge.kt` and `MainViewModel.java`.
 
 N.B. To use CompletableFuture, you need to have a minimum API level of 24.
 
@@ -279,6 +279,7 @@ If you are using RSS Parser in your app and would like to be listed here, please
 
 * [FeedFlow](https://www.feedflow.dev)
 * [ReLabs](https://github.com/theimpulson/ReLabs)
-    
+* [CapyReader](https://capyreader.com/)
+
 </details>
 
